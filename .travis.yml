@@ -1,0 +1,18 @@
+language: rust
+sudo: false
+
+cache:
+  - cargo
+
+rust:
+  - stable
+
+before_script:
+  - (test -x $HOME/.cargo/bin/cargo-install-update || cargo install cargo-update)
+  - cargo install-update -i mdbook
+
+script:
+  - mdbook build && mdbook test
+
+after_success:
+  - build/publish.sh
